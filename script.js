@@ -23,7 +23,23 @@ fetch("http://localhost:5678/api/works")
 
             gallery.appendChild(newFigure);
         }
+   });
 
+fetch("http://localhost:5678/api/categories")
+.then(data => {
+    if (!data.ok) {
+      throw Error(data.status);
+     }
+     return data.json();
+    }).then(categories => {
+        console.log(categories);
+
+        let filtresTrier = document.querySelector(".filters");
+        filtresTrier.addEventListener("click", function (){
         
-    });
+   })
+})
+        
+
+   
 
