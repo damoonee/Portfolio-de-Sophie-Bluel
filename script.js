@@ -33,12 +33,29 @@ fetch("http://localhost:5678/api/categories")
      return data.json();
     }).then(categories => {
         console.log(categories);
+        
+        let filters = document.getElementById("filters");
 
-        let filtresTrier = document.querySelector(".filters");
-        filtresTrier.addEventListener("click", function (){
+            for (let i = 0; i < categories.length; i++) {
+                let Button = document.createElement("button");
+                Button.innerHTML = categories[i].name;
+                filters.appendChild(Button);
+
+                Button.addEventListener("click", function(){
+                    let filters = document.querySelectorAll("#gallery img")
+
+                    document.getElementsByClassName("active")[0].classList.remove("active");
+                    document.getElementsByClassName("inactive")[i].classList.add("active");
+                })
+
+                
+                
+
+            }
+        
         
    })
-})
+
         
 
    
