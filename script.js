@@ -1,3 +1,24 @@
+let works;
+
+function AfficherProjets(worksFiltre) {
+    let gallery = document.getElementById("gallery");
+    gallery.innerHTML = "";
+
+    for (let i = 0; i < worksFiltre.length; i++) {
+        let newFigure = document.createElement("figure");
+        let newImage = document.createElement("img");
+        newImage.src = worksFiltre[i].imageUrl;
+        newImage.alt = worksFiltre[i].title;
+        let newFigCaption = document.createElement("figcaption");
+        newFigCaption.innerHTML = worksFiltre[i].title;
+
+        newFigure.appendChild(newImage);
+        newFigure.appendChild(newFigCaption);
+
+        gallery.appendChild(newFigure);
+    }
+}
+
 // Source: https://www.freecodecamp.org/news/how-to-make-api-calls-with-fetch/
 fetch("http://localhost:5678/api/works")
 .then(data => {
@@ -5,24 +26,11 @@ fetch("http://localhost:5678/api/works")
       throw Error(data.status);
      }
      return data.json();
-    }).then(works => {
+    }).then(data => {
+        works = data;
         console.log(works);
 
-        let gallery = document.getElementById("gallery");
-
-        for (let i = 0; i < works.length; i++) {
-            let newFigure = document.createElement("figure");
-            let newImage = document.createElement("img");
-            newImage.src = works[i].imageUrl;
-            newImage.alt = works[i].title;
-            let newFigCaption = document.createElement("figcaption");
-            newFigCaption.innerHTML = works[i].title;
-
-            newFigure.appendChild(newImage);
-            newFigure.appendChild(newFigCaption);
-
-            gallery.appendChild(newFigure);
-        }
+        AfficherProjets(works);
    });
 
 fetch("http://localhost:5678/api/categories")
@@ -33,25 +41,37 @@ fetch("http://localhost:5678/api/categories")
      return data.json();
     }).then(categories => {
         console.log(categories);
-        
+
         let filters = document.getElementById("filters");
 
-            for (let i = 0; i < categories.length; i++) {
-                let Button = document.createElement("button");
-                Button.innerHTML = categories[i].name;
-                filters.appendChild(Button);
+        let buttonTous = document.createElement("button");
+        buttonTous.innerHTML = "Tous";
+        buttonTous.classList.add("active");
+        filters.appendChild(buttonTous);
 
-                Button.addEventListener("click", function(){
-                    let filters = document.querySelectorAll("#gallery img")
+        buttonTous.addEventListener("click", function(){
+            document.getElementsByClassName("active")[0].classList.remove("active");
+            buttonTous.classList.add("active");
 
-                    document.getElementsByClassName("active")[0].classList.remove("active");
-                    document.getElementsByClassName("inactive")[i].classList.add("active");
-                })
+            AfficherProjets(works);
+        });
+        
+        for (let i = 0; i < categories.length; i++) {
+            let button = document.createElement("button");
+            button.innerHTML = categories[i].name;
+            filters.appendChild(button);
 
-                
-                
+            button.addEventListener("click", function(){
+                document.getElementsByClassName("active")[0].classList.remove("active");
+                button.classList.add("active");
 
-            }
+                AfficherProjets(works.filter(
+                    function (work) {
+                        return work.categoryId === categories[i].id;
+                    }
+                ));
+            });
+        }
         
         
    })

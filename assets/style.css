@@ -111,6 +111,7 @@ button {
 	background: #fff;
 }
 
+button.active, 
 button:hover {
 	background: #1D6154;
 	color: #fff;
