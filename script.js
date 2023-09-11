@@ -1,3 +1,6 @@
+
+// Source: https://www.freecodecamp.org/news/how-to-make-api-calls-with-fetch/
+
 let works;
 
 function AfficherProjets(worksFiltre) {
@@ -19,7 +22,6 @@ function AfficherProjets(worksFiltre) {
     }
 }
 
-// Source: https://www.freecodecamp.org/news/how-to-make-api-calls-with-fetch/
 fetch("http://localhost:5678/api/works")
 .then(data => {
     if (!data.ok) {

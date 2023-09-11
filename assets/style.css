@@ -71,6 +71,14 @@ h1{
 	color: #B1663C
 }
 
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	color: #B1663C;
+}
+
 h1 > span {
 	font-family: 'Work Sans';
 	font-size:10px;
@@ -172,7 +180,7 @@ li:hover {
 }
 #contact {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
 #contact > * {
 	text-align: center;
