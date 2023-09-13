@@ -27,6 +27,16 @@ form {
     width: 40%;
 }
 
+.erreurLogin {
+    color: red;
+    visibility: hidden;
+}
+
+.valideEmail {
+    color: red;
+    visibility: hidden;
+}
+
 input {
     height: 51px;
     background: #FFF;
