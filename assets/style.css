@@ -59,7 +59,8 @@ header {
 	margin: 50px 0
 }
 section {
-	margin: 50px 0
+	margin: 50px 0;
+	position: relative;
 }
 
 h1{
@@ -90,7 +91,7 @@ h2{
 	font-family: 'Syne';
 	font-weight: 700;
 	font-size: 30px;
-	color: #1D6154
+	color: #1D6154;
 }
 
 .filters {
@@ -226,5 +227,27 @@ footer nav ul {
 	justify-content: flex-end;
 	margin: 2em;
 	cursor: pointer;
+}
+
+.editionLogin {
+	width: 100%;
+	background: black;
+	color: white;
+	display: flex;
+	height: 60px;
+	justify-content: center;
+	gap: 12px;
+	align-items: center;
+	cursor: pointer;
+}
+
+.modificationLogin {
+	display: flex;
+	gap: 12px;
+	align-items: center;
+	cursor: pointer;
+	position: absolute;
+	left: calc(50% + 130px);
+	top: 8px;
 }
 
