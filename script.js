@@ -79,5 +79,9 @@ let token = localStorage.getItem("token");
 console.log(token);
 
 if (token !== null) {
-    
+    document.getElementById("login").innerHTML = "logout";
+    let elements = document.getElementsByClassName("connexion-requise");
+    for (let i = 0; i < elements.length; i++) {
+        elements.item(i).style.display = "flex";
+    }
 }
