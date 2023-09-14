@@ -1,3 +1,5 @@
+localStorage.removeItem("token");
+
 let form = document.querySelector('form');
 let pErreurLogin = document.querySelector('.erreurLogin');
 
