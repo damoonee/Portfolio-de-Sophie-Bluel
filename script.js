@@ -1,6 +1,3 @@
-
-// Source: https://www.freecodecamp.org/news/how-to-make-api-calls-with-fetch/
-
 let works;
 
 function AfficherProjets(worksFiltre) {
@@ -76,13 +73,11 @@ fetch("http://localhost:5678/api/categories")
         }
         
         
-   })
+   });
 
+let token = localStorage.getItem("token");
+console.log(token);
 
-
+if (token !== null) {
     
-
-        
-
-   
-
+}
