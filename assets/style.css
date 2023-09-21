@@ -276,11 +276,11 @@ footer nav ul {
 
 .modal-wrapper {
 	overflow: auto;
-	height: 688px;
 	max-width: calc(100vw - 20px);
 	max-height: calc(100vh - 20px);
 	background-color: #fff;
 	border-radius: 10px;
+	width: 630px;
 }
 
 .close-modal {
@@ -298,7 +298,7 @@ footer nav ul {
 	font-style: normal;
 	font-weight: 400;
 	line-height: normal;
-	padding: 60px 0px;
+	padding: 60px 0px 46px 0px;
 }
 
 .modalContent img {
@@ -322,7 +322,7 @@ footer nav ul {
 	width: 420px;
 	height: 1px;
 	background: #b3b3b3;
-	margin: 47px auto 0 auto;
+	margin: 35px auto 0 auto;
 }
 
 .modalContent figure {
@@ -339,6 +339,7 @@ footer nav ul {
     width: auto;
     height: auto;
     padding: 7px;
+	cursor: pointer;
 }
 
 .addImage {
@@ -353,4 +354,91 @@ footer nav ul {
     display: flex;
     align-items: center;
     justify-content: center;
+	cursor: pointer;
 }
+
+.retour-modal {
+	float: left;
+    padding: 26px 0px 10px 30px;
+    color: black;
+    width: 21px;
+}
+
+.modal-ajout-projet input[type="submit"] {
+	height: 36px;
+	display: flex;
+	justify-content: center;
+	border: none;
+}
+
+input[type="submit"]:disabled {
+	background: #a7a7a7;
+}
+
+.modal-ajout-projet form {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    justify-content: center;
+	align-items: center;
+	margin: auto;
+	max-width: 420px;
+}
+
+.modal-ajout-projet input[type="text"], select {
+    height: 51px;
+    background: #FFF;
+    box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
+    border: none;
+    margin-bottom: 21px;
+	width: 420px;
+}
+
+.modal-ajout-projet label:not(.label-button) {
+    margin: 7px;
+	margin-right: auto;
+}
+
+.ajout-photo {
+	border-radius: 3px;
+	background: #E8F1F6;
+    width: 100%;
+	margin-bottom: 30px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 20px;
+	gap: 8px;
+	box-sizing: border-box;
+}
+
+.ajout-photo i {
+	color: #B9C5CC;
+    font-size: 76px;
+	margin-bottom: 10px;
+}
+
+.ajout-photo p {
+	color: #444;
+	text-align: center;
+	font-family: Work Sans;
+	font-size: 10px;
+}
+
+.label-button {
+	border-radius: 50px;
+	background: #CBD6DC;
+	height: 36px;
+	width: 173px;
+	align-items: center;
+    display: flex;
+    justify-content: center;
+	color: #306685;
+	font-family: Work Sans;
+	font-size: 14px;
+}
+
+.modal-ajout-projet #titlemodal {
+	padding: 60px 0px 36px 0px;
+}
+

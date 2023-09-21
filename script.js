@@ -1,4 +1,5 @@
 let works;
+let categories;
 
 function AfficherProjets(worksFiltre) {
     let gallery = document.getElementById("gallery");
@@ -38,7 +39,8 @@ fetch("http://localhost:5678/api/categories")
       throw Error(data.status);
      }
      return data.json();
-    }).then(categories => {
+    }).then(data => {
+        categories = data;
         console.log(categories);
 
         let filters = document.getElementById("filters");
@@ -88,7 +90,6 @@ if (token !== null) {
 
 const openModal = function (e) {
     e.preventDefault();
-    console.log(e);
     modal = document.querySelector(e.target.getAttribute('href'));
     modal.style.display = null;
     modal.removeAttribute('aria-hidden');
@@ -133,9 +134,56 @@ function AfficherProjetsModal () {
         supprImage.appendChild(icone);
         figure.appendChild(supprImage);
         modalContent.appendChild(figure);
+
+        supprImage.addEventListener("click", function(event) {    
+            let workId = works[i].id;
+    
+            fetch(`http://localhost:5678/api/works/${workId}`,{
+                method: "DELETE",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            })
+            .then(function(response){
+                if (response.ok) {
+                    works.splice(i, 1);
+                    AfficherProjetsModal();
+                    AfficherProjets(works);
+                }
+            });
+        });
     }
 }
 
 document.querySelectorAll('.js-modal').forEach(a => {
     a.addEventListener('click', openModal);
 })
+
+const RedirectAjoutModal = function (e) {
+    document.querySelector(".modal-liste-projet").style.display = "none";
+    document.querySelector(".modal-ajout-projet").style.display = null;
+    AjoutOptionsCategories();
+}
+
+let retour = document.querySelector(".retour-modal");
+
+retour.addEventListener("click", () =>{
+    document.querySelector(".modal-liste-projet").style.display = null;
+    document.querySelector(".modal-ajout-projet").style.display = "none";
+})
+
+function AjoutOptionsCategories() {
+    let selectCategories = document.getElementById("categories");
+    selectCategories.innerHTML = "<option></option>";
+
+    for (let i = 0; i < categories.length; i++) {
+        let option = document.createElement("option");
+
+        option.innerHTML = categories[i].name;
+        option.value = categories[i].id;
+
+        selectCategories.appendChild(option);
+    }
+    
+
+}

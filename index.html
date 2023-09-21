@@ -61,10 +61,34 @@
 				<a href="#" class="close-modal">
 					<i class="fa-solid fa-x"></i>
 				</a>
-				<h3 id="titlemodal">Galerie photo</h3>
-				<div class="modalContent"></div>
-				<div class="ligne"></div>
-				<span class="addImage">Ajouter une photo</span>
+				
+				<div class="modal-liste-projet">
+					<h3 id="titlemodal">Galerie photo</h3>
+					<div class="modalContent"></div>
+					<div class="ligne"></div>
+					<span class="addImage" onclick="RedirectAjoutModal()">Ajouter une photo</span>
+				</div>
+
+				<div class="modal-ajout-projet" style="display: none;">
+					<a href="#" class="retour-modal">
+						<i class="fa-solid fa-arrow-left"></i>
+					</a>
+					<h3 id="titlemodal">Ajout photo</h3>
+					<form>
+						<div class="ajout-photo">
+							<i class="fa-regular fa-image"></i>
+							<label for="input-photo" class="label-button">+ Ajouter photo</label>
+							<input type="file" id="input-photo" accept="image/png, image/jpeg" style="display: none;"/>
+							<p>jpg, png : 4mo max</p>
+						</div>
+						<label for="titre">Titre</label>
+						<input type="text" name="titre" id="titre">
+						<label for="categories">Catégories</label>
+						<select name="categories" id="categories"></select>
+						<div class="ligne"></div>
+						<input type="submit" value="valider" disabled>
+					</form>
+				</div>
 			</div>
 		</aside>
 		<div class="filters" id="filters">
