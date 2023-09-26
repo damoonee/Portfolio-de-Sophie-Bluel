@@ -183,7 +183,57 @@ function AjoutOptionsCategories() {
         option.value = categories[i].id;
 
         selectCategories.appendChild(option);
-    }
-    
+    };
+};
 
-}
+let input = document.getElementById('input-photo');
+
+input.addEventListener('change', function(event){
+    const file = event.target.files[0];
+    if (file) {
+        let imageModal = document.createElement('img');
+        let projetModal = document.querySelector('.ajout-photo');
+        projetModal.innerHTML = "";
+
+        const reader = new FileReader();
+
+        reader.onload = function(event) {
+            imageModal.setAttribute('src', event.target.result);
+            projetModal.appendChild(imageModal);
+            form.insertBefore(projetModal, form.childNodes[0]);
+        }
+
+        reader.readAsDataURL(file);
+        projetModal.style.display = 'flex';
+    }
+})
+
+let form = document.getElementById('new-projet');
+
+form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+        let formData = new FormData();
+        let token = localStorage.getItem("token");
+        formData.append("image", document.getElementById("input-photo").files[0]);
+        formData.append("title", document.getElementById("titre").value);
+        formData.append("category", document.querySelector("select").value);
+    
+        const response = await fetch("http://localhost:5678/api/works", {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+
+            form.reset();
+        })
+    }
+
+)
+
+

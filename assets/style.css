@@ -442,3 +442,8 @@ input[type="submit"]:disabled {
 	padding: 60px 0px 36px 0px;
 }
 
+.ajout-photo img {
+	width: 129px;
+	height: 193px;
+}
+
