@@ -74,6 +74,7 @@ h1{
 
 a {
 	text-decoration: none;
+	color: #000;
 }
 
 a:hover {
@@ -369,6 +370,7 @@ footer nav ul {
 	display: flex;
 	justify-content: center;
 	border: none;
+	cursor: pointer;
 }
 
 input[type="submit"]:disabled {
@@ -436,14 +438,25 @@ input[type="submit"]:disabled {
 	color: #306685;
 	font-family: Work Sans;
 	font-size: 14px;
+	cursor: pointer;
 }
 
 .modal-ajout-projet #titlemodal {
 	padding: 60px 0px 36px 0px;
 }
 
-.ajout-photo img {
+.upload-img img {
 	width: 129px;
 	height: 193px;
+}
+
+.upload-img {
+	border-radius: 3px;
+	background: #E8F1F6;
+    width: 100%;
+	margin-bottom: 30px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 

@@ -1,5 +1,6 @@
 let works;
 let categories;
+recupererWorks();
 
 function AfficherProjets(worksFiltre) {
     let gallery = document.getElementById("gallery");
@@ -16,10 +17,11 @@ function AfficherProjets(worksFiltre) {
         newFigure.appendChild(newImage);
         newFigure.appendChild(newFigCaption);
         gallery.appendChild(newFigure);
-    }
-}
+    };
+};
 
-fetch("http://localhost:5678/api/works")
+function recupererWorks() {
+    fetch("http://localhost:5678/api/works")
 .then(data => {
     if (!data.ok) {
       throw Error(data.status);
@@ -31,7 +33,8 @@ fetch("http://localhost:5678/api/works")
 
         AfficherProjets(works);
         AfficherProjetsModal();
-   });
+});
+};
 
 fetch("http://localhost:5678/api/categories")
 .then(data => {
@@ -72,9 +75,7 @@ fetch("http://localhost:5678/api/categories")
                     }
                 ));
             });
-        }
-        
-        
+        };   
    });
 
 let token = localStorage.getItem("token");
@@ -85,8 +86,8 @@ if (token !== null) {
     let elements = document.getElementsByClassName("connexion-requise");
     for (let i = 0; i < elements.length; i++) {
         elements.item(i).style.display = "flex";
-    }
-}
+    };
+};
 
 const openModal = function (e) {
     e.preventDefault();
@@ -97,7 +98,7 @@ const openModal = function (e) {
     modal.addEventListener('click', closeModal);
     modal.querySelector('.close-modal').addEventListener('click', closeModal);
     modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation);
-}
+};
 
 const closeModal = function (e) {
     if (modal === null) return;
@@ -109,11 +110,11 @@ const closeModal = function (e) {
     modal.querySelector('.close-modal').removeEventListener('click', closeModal);
     modal.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation);
     modal = null;
-}
+};
 
 const stopPropagation = function (e) {
     e.stopPropagation();
-}
+};
 
 function AfficherProjetsModal () {
     let modalContent = document.querySelector('.modalContent');
@@ -149,28 +150,28 @@ function AfficherProjetsModal () {
                     works.splice(i, 1);
                     AfficherProjetsModal();
                     AfficherProjets(works);
-                }
+                };
             });
         });
-    }
-}
+    };
+};
 
 document.querySelectorAll('.js-modal').forEach(a => {
     a.addEventListener('click', openModal);
-})
+});
 
 const RedirectAjoutModal = function (e) {
     document.querySelector(".modal-liste-projet").style.display = "none";
     document.querySelector(".modal-ajout-projet").style.display = null;
     AjoutOptionsCategories();
-}
+};
 
 let retour = document.querySelector(".retour-modal");
 
 retour.addEventListener("click", () =>{
     document.querySelector(".modal-liste-projet").style.display = null;
     document.querySelector(".modal-ajout-projet").style.display = "none";
-})
+});
 
 function AjoutOptionsCategories() {
     let selectCategories = document.getElementById("categories");
@@ -190,25 +191,39 @@ let input = document.getElementById('input-photo');
 
 input.addEventListener('change', function(event){
     const file = event.target.files[0];
+
     if (file) {
         let imageModal = document.createElement('img');
+        let container = document.createElement('div');
         let projetModal = document.querySelector('.ajout-photo');
-        projetModal.innerHTML = "";
+        container.classList.add("upload-img");
 
         const reader = new FileReader();
 
         reader.onload = function(event) {
             imageModal.setAttribute('src', event.target.result);
-            projetModal.appendChild(imageModal);
-            form.insertBefore(projetModal, form.childNodes[0]);
-        }
+            container.appendChild(imageModal);
+            form.insertBefore(container, form.childNodes[0]);
+        };
 
         reader.readAsDataURL(file);
-        projetModal.style.display = 'flex';
+        projetModal.style.display = 'none';
+    };
+
+    const fileTypes = ["image/jpeg", "image/png"];
+    let testFormat = false;
+    
+    for (var i = 0; i < fileTypes.length; i++) {
+        if (file.type === fileTypes[i]) {
+        testFormat = true;
+        console.log(fileTypes)
+        }
     }
-})
+});
 
 let form = document.getElementById('new-projet');
+let container = document.querySelector('.upload-img')
+let projetModal = document.querySelector('.ajout-photo');
 
 form.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -231,9 +246,16 @@ form.addEventListener('submit', async (event) => {
             console.log(data);
 
             form.reset();
-        })
-    }
+            document.querySelector(".upload-img").innerHTML = "";
+            document.querySelector(".upload-img").style.display = "none";
+            projetModal.style.display = "flex";
+            
+            document.querySelector(".modal-liste-projet").style.display = null;
+            document.querySelector(".modal-ajout-projet").style.display = "none";
 
-)
+            recupererWorks();
+        });
+    }
+);
 
 
