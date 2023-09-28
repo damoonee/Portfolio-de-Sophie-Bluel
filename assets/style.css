@@ -373,8 +373,9 @@ footer nav ul {
 	cursor: pointer;
 }
 
-input[type="submit"]:disabled {
+.modal-ajout-projet form:invalid input[type="submit"] {
 	background: #a7a7a7;
+	pointer-events: none;
 }
 
 .modal-ajout-projet form {

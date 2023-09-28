@@ -78,13 +78,13 @@
 						<div class="ajout-photo">
 							<i class="fa-regular fa-image"></i>
 							<label for="input-photo" class="label-button">+ Ajouter photo</label>
-							<input type="file" id="input-photo" accept="image/png, image/jpeg" style="display: none;"/>
+							<input type="file" id="input-photo" accept="image/png, image/jpeg" style="display: none;" required/>
 							<p>jpg, png : 4mo max</p>
 						</div>
 						<label for="titre">Titre</label>
-						<input type="text" name="titre" id="titre">
+						<input type="text" name="titre" id="titre" required>
 						<label for="categories">Catégories</label>
-						<select name="categories" id="categories"></select>
+						<select name="categories" id="categories" required></select>
 						<div class="ligne"></div>
 						<input type="submit" value="valider">
 					</form>

@@ -103,6 +103,7 @@ const openModal = function (e) {
 const closeModal = function (e) {
     if (modal === null) return;
     e.preventDefault();
+    RetourModal();
     modal.style.display = "none";
     modal.setAttribute('aria-hidden', 'true');
     modal.removeAttribute('aria-modal');
@@ -168,10 +169,17 @@ const RedirectAjoutModal = function (e) {
 
 let retour = document.querySelector(".retour-modal");
 
-retour.addEventListener("click", () =>{
+function RetourModal() {
+    form.reset();
+    document.querySelector(".upload-img").innerHTML = "";
+    document.querySelector(".upload-img").style.display = "none";
+    projetModal.style.display = "flex";
+
     document.querySelector(".modal-liste-projet").style.display = null;
     document.querySelector(".modal-ajout-projet").style.display = "none";
-});
+}
+
+retour.addEventListener("click", RetourModal);
 
 function AjoutOptionsCategories() {
     let selectCategories = document.getElementById("categories");
@@ -193,6 +201,13 @@ input.addEventListener('change', function(event){
     const file = event.target.files[0];
 
     if (file) {
+        const fileTypes = ["image/jpeg", "image/png"];
+        const fileMaxSize = 4000000;
+        if (!fileTypes.includes(file.type) || file.size > fileMaxSize) {
+            event.target.value = "";
+            return;
+        }
+
         let imageModal = document.createElement('img');
         let container = document.createElement('div');
         let projetModal = document.querySelector('.ajout-photo');
@@ -209,16 +224,6 @@ input.addEventListener('change', function(event){
         reader.readAsDataURL(file);
         projetModal.style.display = 'none';
     };
-
-    const fileTypes = ["image/jpeg", "image/png"];
-    let testFormat = false;
-    
-    for (var i = 0; i < fileTypes.length; i++) {
-        if (file.type === fileTypes[i]) {
-        testFormat = true;
-        console.log(fileTypes)
-        }
-    }
 });
 
 let form = document.getElementById('new-projet');
@@ -228,34 +233,28 @@ let projetModal = document.querySelector('.ajout-photo');
 form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
-        let formData = new FormData();
-        let token = localStorage.getItem("token");
-        formData.append("image", document.getElementById("input-photo").files[0]);
-        formData.append("title", document.getElementById("titre").value);
-        formData.append("category", document.querySelector("select").value);
-    
-        const response = await fetch("http://localhost:5678/api/works", {
-            method: 'POST',
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-            body: formData,
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
+    let formData = new FormData();
+    let token = localStorage.getItem("token");
+    formData.append("image", document.getElementById("input-photo").files[0]);
+    formData.append("title", document.getElementById("titre").value);
+    formData.append("category", document.querySelector("select").value);
 
-            form.reset();
-            document.querySelector(".upload-img").innerHTML = "";
-            document.querySelector(".upload-img").style.display = "none";
-            projetModal.style.display = "flex";
-            
-            document.querySelector(".modal-liste-projet").style.display = null;
-            document.querySelector(".modal-ajout-projet").style.display = "none";
+    const response = await fetch("http://localhost:5678/api/works", {
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+    })
+    .then(response =>  {
+        response.json();
+    })
+    .then(data => {
+        console.log(data);
 
-            recupererWorks();
-        });
-    }
-);
+        RetourModal();
+        recupererWorks();
+    });
+});
 
 
