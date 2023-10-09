@@ -167,12 +167,19 @@ const RedirectAjoutModal = function (e) {
     AjoutOptionsCategories();
 };
 
+let addWork = document.querySelector(".addImage");
+
+addWork.addEventListener("click", RedirectAjoutModal);
+
 let retour = document.querySelector(".retour-modal");
 
 function RetourModal() {
     form.reset();
-    document.querySelector(".upload-img").innerHTML = "";
-    document.querySelector(".upload-img").style.display = "none";
+    uploadImg = document.querySelector(".upload-img");
+    if (uploadImg) {
+        uploadImg.innerHTML = "";
+        uploadImg.style.display = "none";
+    }
     projetModal.style.display = "flex";
 
     document.querySelector(".modal-liste-projet").style.display = null;
